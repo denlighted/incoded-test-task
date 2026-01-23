@@ -18,18 +18,29 @@ model Card {
 
   title String
 
-  description String
+  description String?
 
-  boardId Int @map("board_id")
+  boardId String @map("board_id")
 
-  column BoardTitles @default(TODO)
+  column CardStatus @default(TODO)
 
   position Int @default(0)
+
+  board Board @relation("board_cards", fields: [boardId], references: [id], onDelete: Cascade)
 
   @@map("cards")
 }
 
-enum BoardTitles {
+model Board {
+  id       String @id @default(uuid())
+  publicId String @unique @map("public_id")
+  title    String @default("My Board")
+  Cards    Card[] @relation("board_cards")
+
+  @@map("boards")
+}
+
+enum CardStatus {
   TODO
   IN_PROGRESS
   DONE

@@ -1,8 +1,8 @@
-import { BoardTitles } from '@prisma/client';
+import { CardStatus } from '@prisma/client';
 
 export class CardCreationRequest {
   boardId: string;
   title: string;
   description: string;
-  column: BoardTitles;
+  column: CardStatus;
 }
