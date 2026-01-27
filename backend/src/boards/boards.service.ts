@@ -13,7 +13,7 @@ export class BoardsService {
     async getAllBoardCards(publicId: string):Promise<Board> {
         const board = await this.prismaService.board.findUnique({
             where: {publicId: publicId},
-            include: {Cards: {
+            include: {cards: {
                 orderBy:{
                     position:'asc'
                 }

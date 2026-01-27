@@ -35,7 +35,7 @@ model Board {
   id       String @id @default(uuid())
   publicId String @unique @map("public_id")
   title    String @default("My Board")
-  Cards    Card[] @relation("board_cards")
+  cards    Card[] @relation("board_cards")
 
   @@map("boards")
 }

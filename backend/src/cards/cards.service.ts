@@ -28,7 +28,7 @@ export class CardsService {
             data: {
                 title,
                 description,
-                board: {connect: {id: boardId}},
+                board: {connect: {publicId: boardId}},
                 column,
                 position: newPosition,
             }
@@ -69,23 +69,32 @@ export class CardsService {
         return cardId;
     }
 
-    async moveCard(cardId: string, dto: CardMoveRequest) {
-        const card = await this.prismaService.card.findUnique({where: {id: cardId}})
+    async moveCard(id: string, dto: CardMoveRequest) {
+        const {column, position} = dto;
 
-        if (!card) {
-            throw new NotFoundException("Card not Found")
-        }
+        const columnCards = await this.prismaService.card.findMany({
+            where: {
+                column: column,
+                NOT: {id: id}
+            },
+            orderBy: {position: 'asc'}
+        });
 
-        const {column, position} = dto
+        const newOrderId = columnCards.map(c => c.id);
 
-        return this.prismaService.card.update({
-            where: {id: card.id},
-            data: {
-                column,
-                position
-            }
-        })
+        newOrderId.splice(position, 0, id)
 
+        const updates = newOrderId.map((cardId, index) => {
+            return this.prismaService.card.update({
+                where: {id: cardId},
+                data: {
+                    column: column,
+                    position: index
+                }
+            })
 
+        });
+        await this.prismaService.$transaction(updates);
+        return this.prismaService.card.findUnique({ where: { id } });
     }
 }

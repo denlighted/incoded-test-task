@@ -12,12 +12,12 @@ export class CardsController {
   }
 
   @Patch('/:cardId')
-  async updateCard(@Param('cardId') cardId:string, dto:UpdateCardRequest) {
+  async updateCard(@Param('cardId') cardId:string, @Body() dto:UpdateCardRequest) {
     return this.cardsService.updateCard(cardId, dto);
   }
 
   @Patch("/move/:cardId")
-  async moveCard(@Param('cardId') cardId:string, dto:CardMoveRequest) {
+  async moveCard(@Param('cardId') cardId:string, @Body() dto:CardMoveRequest) {
     return this.cardsService.moveCard(cardId, dto);
   }
 
