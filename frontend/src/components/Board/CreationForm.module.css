@@ -1,0 +1,27 @@
+.inputTitle{
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 2px solid #0079bf;
+    font-family: inherit;
+}
+
+.inputDesc{
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #dfe1e6;
+    min-height: 60px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 14px
+}
+
+.addBtn{
+    background: #0079bf;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}

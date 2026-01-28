@@ -5,7 +5,7 @@ export interface CreateBoardDto{
     title:string
 }
 
-export interface EditBoardDto extends CreateBoardDto{}
+export type EditBoardDto = CreateBoardDto
 
 export interface Board {
     id:string
