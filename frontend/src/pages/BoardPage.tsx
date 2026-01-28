@@ -18,7 +18,7 @@ export function BoardPage() {
   const { publicId } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { cards, isLoading, title } = useAppSelector((state) => state.board);
+  const { cards, isLoading, title, error } = useAppSelector((state) => state.board);
 
   const sortByPosition = (a: Card, b: Card) => a.position - b.position;
 
@@ -77,6 +77,18 @@ export function BoardPage() {
       }
     }
   };
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen">
+        <h2 className="text-2xl font-bold text-red-500 mb-4">Board not found</h2>
+        <p className="mb-4">Board does not exist or it has been deleted</p>
+        <a href="/" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+          Go Home
+        </a>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return <div style={{ padding: 20 }}>Loading data...</div>;

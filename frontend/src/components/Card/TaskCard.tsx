@@ -45,134 +45,51 @@ function TaskCard({ card, index }: TaskProps) {
     setEditDescription(card.description || '');
     setIsEditing(false);
   };
-
   return (
     <Draggable draggableId={card.id} index={index}>
       {(provided, snapshot) => (
         <div
-          className={cl.card}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          style={{
-            marginBottom: '8px',
-            padding: '10px',
-            background: 'white',
-            borderRadius: '8px',
-            boxShadow: snapshot.isDragging
-              ? '0 10px 20px rgba(0,0,0,0.2)'
-              : '0 1px 3px rgba(0,0,0,0.12)',
-
-            ...provided.draggableProps.style,
-
-            zIndex: snapshot.isDragging ? 1000 : 'auto'
-          }}
+          className={`${cl.card} ${snapshot.isDragging ? cl.isDragging : ''}`}
+          style={provided.draggableProps.style}
         >
           {isEditing ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div className={cl.editModeWrapper}>
               <input
                 autoFocus
+                className={cl.editInput}
                 value={editTitle}
                 onChange={(e) => setEditTitle(e.target.value)}
-                style={{
-                  fontWeight: 'bold',
-                  padding: '4px',
-                  borderRadius: '4px',
-                  border: '2px solid #0079bf'
-                }}
               />
               <textarea
+                className={cl.editTextarea}
                 value={editDescription}
                 onChange={(e) => setEditDescription(e.target.value)}
                 placeholder="Описание..."
-                style={{
-                  padding: '4px',
-                  borderRadius: '4px',
-                  border: '1px solid #dfe1e6',
-                  minHeight: '60px',
-                  resize: 'vertical',
-                  fontFamily: 'inherit'
-                }}
               />
-              <div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}>
-                <button
-                  onClick={handleSave}
-                  style={{
-                    background: '#0079bf',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '4px',
-                    padding: '4px 8px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 4
-                  }}
-                >
+              <div className={cl.editButtons}>
+                <button onClick={handleSave} className={`${cl.btn} ${cl.saveBtn}`}>
                   <Check size={14} /> Save
                 </button>
-                <button
-                  onClick={handleCancel}
-                  style={{
-                    background: '#e2e4e7',
-                    color: '#333',
-                    border: 'none',
-                    borderRadius: '4px',
-                    padding: '4px 8px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 4
-                  }}
-                >
+                <button onClick={handleCancel} className={`${cl.btn} ${cl.cancelBtn}`}>
                   <X size={14} /> Cancel
                 </button>
               </div>
             </div>
           ) : (
             <>
-              <div style={{ paddingRight: '20px' }}>
-                <h3 className={cl.cardTitle} style={{ margin: '0 0 5px 0' }}>
-                  {card.title}
-                </h3>
-                {card.description && (
-                  <p style={{ fontSize: '14px', color: '#666', margin: 0, whiteSpace: 'pre-wrap' }}>
-                    {card.description}
-                  </p>
-                )}
+              <div className={cl.viewContent}>
+                <h3 className={cl.cardTitle}>{card.title}</h3>
+                {card.description && <p className={cl.cardDescription}>{card.description}</p>}
               </div>
-              <div
-                style={{
-                  top: '8px',
-                  right: '8px',
-                  display: 'flex',
-                  gap: '4px'
-                }}
-              >
-                <button
-                  onClick={() => setIsEditing(true)}
-                  style={{
-                    border: 'none',
-                    background: 'transparent',
-                    cursor: 'pointer',
-                    color: '#6b778c',
-                    padding: 2
-                  }}
-                  title="Редактировать"
-                >
+
+              <div className={cl.actionsWrapper}>
+                <button onClick={() => setIsEditing(true)} className={cl.actionBtn} title="Edit">
                   <Pencil size={16} />
                 </button>
-                <button
-                  onClick={handleDeleteClick}
-                  style={{
-                    border: 'none',
-                    background: 'transparent',
-                    cursor: 'pointer',
-                    color: '#6b778c',
-                    padding: 2
-                  }}
-                  title="Удалить"
-                >
+                <button onClick={handleDeleteClick} className={cl.actionBtn} title="Delete">
                   <Trash2 size={16} />
                 </button>
               </div>

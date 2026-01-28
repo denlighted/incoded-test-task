@@ -1,43 +1,106 @@
 .card {
-  background-color: white;
-  border: 2px solid black;
+  position: relative;
+  margin-bottom: 8px;
+  padding: 10px;
+  background: white;
   border-radius: 8px;
-  padding: 12px;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 12%);
+}
+
+.isDragging {
+  box-shadow: 0 10px 20px rgb(0 0 0 / 20%);
+  z-index: 1;
+}
+
+.editModeWrapper {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.cardTitle {
-  font-size: 14px;
+.editInput,
+.editTextarea {
+  width: 100%;
+  padding: 4px;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+.editInput {
   font-weight: 600;
-  color: black;
+  border: 2px solid #0079bf;
+}
+
+.editTextarea {
+  min-height: 60px;
+  resize: vertical;
+  border: 1px solid white;
+}
+
+.editButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.saveBtn {
+  background: #0079bf;
+  color: white;
+}
+
+.cancelBtn {
+  background: white;
+}
+
+.viewContent {
+  padding-right: 24px;
+}
+
+.cardTitle {
+  margin: 0 0 4px;
+  font-size: 16px;
 }
 
 .cardDescription {
-  font-size: 13px;
-  color: #555555;
+  margin: 0;
+  font-size: 14px;
+  color: gray;
+  white-space: pre-wrap;
 }
 
-.cardActions {
+.actionsWrapper {
+  position: absolute;
+  top: 8px;
+  right: 8px;
   display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  margin-top: 8px;
+  gap: 4px;
+  opacity: 0;
 }
 
-.actionButton {
-  background: none;
-  border: 1px solid #000000;
-  border-radius: 4px;
+.card:hover .actionsWrapper {
+  opacity: 1;
+}
+
+.actionBtn {
+  display: flex;
   padding: 4px;
+  border: none;
+  background: none;
+  border-radius: 4px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s;
+  color: #6b778c;
 }
 
-.actionButton:hover {
-  background-color: white;
+.actionBtn:hover {
+  background: white;
+  color: #172b4d;
 }

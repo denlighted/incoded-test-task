@@ -16,8 +16,7 @@ import {
 
 export const fetchBoardData = createAsyncThunk('board/fetchData', async (publicId: string) => {
   const response = await getAllBoardCards(publicId);
-
-  return response || [];
+  return response;
 });
 
 export const deleteCardThunk = createAsyncThunk('board/deleteCard', async (cardId: string) => {

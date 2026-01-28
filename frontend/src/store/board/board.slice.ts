@@ -13,7 +13,8 @@ import {
 const initialState: BoardState = {
   title: '',
   cards: [],
-  isLoading: false
+  isLoading: false,
+  error: ''
 };
 
 export const boardState = createSlice({
@@ -47,9 +48,11 @@ export const boardState = createSlice({
         state.isLoading = false;
         state.cards = action.payload.cards || [];
         state.title = action.payload.title || '';
+        state.error = undefined;
       })
-      .addCase(fetchBoardData.rejected, (state) => {
+      .addCase(fetchBoardData.rejected, (state,action) => {
         state.isLoading = false;
+        state.error = action.error.message;
       })
 
       .addCase(deleteCardThunk.fulfilled, (state, action) => {
