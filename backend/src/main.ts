@@ -16,7 +16,7 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:5173', 'https://incoded-test-task-3.onrender.com'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     exposedHeaders: ['Set-Cookie', 'Content-Disposition'],
