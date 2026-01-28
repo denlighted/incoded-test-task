@@ -1,6 +1,6 @@
-import {Body, Controller, Delete, Param, Patch, Post} from '@nestjs/common';
+import { Body, Controller, Delete, Param, Patch, Post } from '@nestjs/common';
 import { CardsService } from './cards.service';
-import {CardCreationRequest, CardMoveRequest, UpdateCardRequest} from "./dto";
+import { CardCreationRequest, CardMoveRequest, UpdateCardRequest } from './dto';
 
 @Controller('cards')
 export class CardsController {
@@ -12,12 +12,12 @@ export class CardsController {
   }
 
   @Patch('/:cardId')
-  async updateCard(@Param('cardId') cardId:string, @Body() dto:UpdateCardRequest) {
+  async updateCard(@Param('cardId') cardId: string, @Body() dto: UpdateCardRequest) {
     return this.cardsService.updateCard(cardId, dto);
   }
 
-  @Patch("/move/:cardId")
-  async moveCard(@Param('cardId') cardId:string, @Body() dto:CardMoveRequest) {
+  @Patch('/move/:cardId')
+  async moveCard(@Param('cardId') cardId: string, @Body() dto: CardMoveRequest) {
     return this.cardsService.moveCard(cardId, dto);
   }
 
@@ -25,5 +25,4 @@ export class CardsController {
   async deleteCard(@Param('cardId') cardId: string) {
     return this.cardsService.deleteCard(cardId);
   }
-
 }

@@ -8,6 +8,6 @@ import { BoardsModule } from './boards/boards.module';
 @Module({
   imports: [PrismaModule, CardsModule, BoardsModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService]
 })
 export class AppModule {}
